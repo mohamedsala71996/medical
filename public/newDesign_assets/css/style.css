@@ -1,0 +1,573 @@
+/**
+ * @license
+ * Copyright 2019 Google LLC. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
+ */
+:root {
+  --building-color: #4C3FD7;
+  --house-color: #4C3FD7;
+  --shop-color: #4C3FD7;
+  --warehouse-color: #4C3FD7;
+}
+
+/*
+   * Optional: Makes the sample page fill the window.
+   */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+/*
+   * Always set the map height explicitly to define the size of the div element
+   * that contains the map.
+   */
+#map {
+  height: 100%;
+  width: 100%;
+}
+
+/*
+   * Property styles in unhighlighted state.
+   */
+
+   .property::after {
+    font-family: 'Font Awesome 5 Free'; /* Change to your FontAwesome font family */
+    content: "\f3c5";
+    position: absolute;
+    font-weight: 900;
+    top: 95%;
+    left: 15px;
+    transform: translateY(-50%);
+    font-size: 40px;
+    color: #4C3FD7;
+    background-color: transparent;
+  }
+  
+.property::after:active {
+  display: none; /* عند الضغط على الأيقونة، ستختفي */
+}
+.property.highlight::after {
+  display: none;
+}
+.property.bink::after {
+  display: none;
+}
+
+ /* font-family: "Font Awesome 5 Free" ; 
+  content: '\f3c5'; 
+  height: 5px;
+  left: 50%;
+  position: absolute;
+  top: 95%;
+  transform: translate(-50%, 0);
+  transition: all 0.3s ease-out;
+  width: 5px;
+  font-size: 20px;
+  z-index: 1;
+  font-weight: 600;  */
+
+
+
+
+
+.property .details {
+  display: none;
+  flex-direction: column;
+  flex: 1;
+}
+
+.property .address {
+  color: #9E9E9E;
+  font-size: 10px;
+  margin-bottom: 10px;
+  margin-top: 5px;
+}
+
+.property .features {
+  align-items: flex-end;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+
+
+/*
+   * Property styles in highlighted state.
+   */
+.property.highlight {
+  background-color: #DFDDF5;
+  border-radius: 8px;
+  box-shadow: 10px 10px 5px rgba(134, 134, 134, 0.2);
+  height: 7rem;
+  width: auto;
+  border: solid 1px #838F96;
+  padding-right: 1rem;
+}
+
+
+
+.property.highlight .details {
+  display: flex;
+}
+
+.property.highlight .icon svg {
+  width: 50px;
+  height: 50px;
+}
+
+.property.bink {
+  background-color: #F5E6FD;
+  border-radius: 8px;
+  box-shadow: 10px 10px 5px rgba(134, 134, 134, 0.2);
+  height: 7rem;
+  padding-right: 1rem;
+  width: auto;
+  border: solid 1px #838F96;
+}
+
+
+
+.property.bink .details {
+  display: flex;
+}
+
+.property.bink .icon svg {
+  width: 50px;
+  height: 50px;
+}
+
+
+
+/*
+   * House icon colors.
+   */
+.property.highlight:has(.fa-house) .icon {
+  color: var(--house-color);
+}
+
+.property:not(.highlight):has(.fa-house) {
+  background-color: var(--house-color);
+}
+
+.property:not(.highlight):has(.fa-house)::after {
+  border-top: 9px solid var(--house-color);
+}
+
+/*
+   * Building icon colors.
+   */
+.property.highlight:has(.fa-building) .icon {
+  color: var(--building-color);
+}
+
+.property:not(.highlight):has(.fa-building) {
+  background-color: var(--building-color);
+}
+
+.property:not(.highlight):has(.fa-building)::after {
+  border-top: 9px solid var(--building-color);
+}
+
+/*
+   * Warehouse icon colors.
+   */
+.property.highlight:has(.fa-warehouse) .icon {
+  color: var(--warehouse-color);
+}
+
+.property:not(.highlight):has(.fa-warehouse) {
+  background-color: var(--warehouse-color);
+}
+
+.property:not(.highlight):has(.fa-warehouse)::after {
+  border-top: 9px solid var(--warehouse-color);
+}
+
+/*
+   * Shop icon colors.
+   */
+.property.highlight:has(.fa-shop) .icon {
+  color: var(--shop-color);
+}
+
+.property:not(.highlight):has(.fa-shop) {
+  background-color: var(--shop-color);
+}
+
+.property:not(.highlight):has(.fa-shop)::after {
+  border-top: 9px solid var(--shop-color);
+}
+
+ul {
+  list-style: none;
+}
+
+ul li {
+  font-weight: bold;
+  margin-top: 7px;
+}
+
+.col-i {
+  color: #4C3FD7;
+  margin-right: 1rem;
+  margin-bottom: 2px;
+}
+
+.details img {
+  width: 3rem;
+  border-radius: 45%;
+  margin-left: 2rem;
+  margin-bottom: -1rem;
+}
+
+.stars {
+  display: inline-block;
+  font-size: 0;
+  /* لإزالة الفراغ بين النجوم */
+  margin-left: 8.3rem;
+  margin-top: 0rem;
+}
+
+.star {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background-image: url('../images/c-starr.png');
+  /* اسم الصورة للنجمة */
+  background-size: cover;
+
+}
+
+
+/* تغيير حالة النجمة إلى نشطة (ملونة) */
+.star.active {
+  background-image: url('../images/star.png');
+  /* اسم الصورة الملونة للنجمة */
+}
+
+.li-move {
+  margin-bottom: -1.5rem;
+}
+
+
+.search-bar {
+  position: absolute;
+  margin-left: 20rem;
+  margin-top: 5rem;
+  max-width: 80rem;
+  width: 80%;
+  display: grid;
+  grid-template-columns: 1fr 3rem;
+  align-items: center;
+  background-color: rgba(149, 190, 251, 0.5);
+  padding: 1rem 2rem;
+  border-radius: 6rem;
+
+}
+
+.search-bar input {
+  font-size: 2rem;
+  padding: 1rem;
+  outline: 0;
+  border: 0;
+  background-color: transparent;
+  color: #fff;
+
+}
+
+.search-bar input::placeholder {
+  color: #b8c2d1;
+}
+
+.search-btn {
+  background-color: transparent;
+  border: 0;
+  padding: 0;
+  height: 3rem;
+  width: 3rem;
+  display: grid;
+  place-items: center;
+}
+
+@media screen and (max-width: 350px) {
+  .search-btn {
+    display: none;
+  }
+}
+
+#srs-b {
+  z-index: 9999;
+}
+
+#map {
+  height: 100vh;
+}
+
+
+
+/* 
+ * Always set the map height explicitly to define the size of the div element
+ * that contains the map. 
+ */
+#map {
+  height: 100%;
+}
+
+/* 
+ * Optional: Makes the sample page fill the window. 
+ */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#description {
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: 300;
+}
+
+#infowindow-content .title {
+  font-weight: bold;
+}
+
+#infowindow-content {
+  display: none;
+}
+
+#map #infowindow-content {
+  display: inline;
+}
+
+.pac-card {
+  background-color: #fff;
+  border: 0;
+  border-radius: 2px;
+  box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
+  margin: 10px;
+  padding: 0 0.5em;
+  font: 400 18px Roboto, Arial, sans-serif;
+  overflow: hidden;
+  font-family: Roboto;
+  padding: 0;
+}
+
+#pac-container {
+  padding-bottom: 12px;
+  margin-right: 12px;
+}
+
+.pac-controls {
+  display: inline-block;
+  padding: 5px 11px;
+}
+
+.pac-controls label {
+  font-family: Roboto;
+  font-size: 13px;
+  font-weight: 300;
+}
+
+#pac-input {
+  background-color: #fff;
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: 300;
+  margin-left: 12px;
+  padding: 0 11px 0 13px;
+  text-overflow: ellipsis;
+  width: 400px;
+
+}
+
+#pac-input:focus {
+  border-color: #4d90fe;
+}
+
+#title {
+  color: #fff;
+  background-color: #4d90fe;
+  font-size: 25px;
+  font-weight: 500;
+  padding: 6px 12px;
+}
+
+#target {
+  width: 345px;
+}
+.group-items{
+  position: absolute;
+  z-index: 999999 !important;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%) !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.controls {
+  width: 60rem ;
+  height: 74px;
+  gap: 0px;
+  border-radius: 8px 0px 0px 0px;
+  border: solid 2px #838F96;
+  background-color: #f6f6f67c !important;
+  border-right: none;
+  outline: none;
+}
+@media (min-width: 768px) {
+  .controls{
+    width: 900px !important;
+  }
+}
+@media (max-width: 576px) {
+  .controls{
+    width: 300px !important;
+  }
+}
+.controls::placeholder{
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 24.2px;
+  text-align: right;
+}
+
+.cont {
+  position: relative;
+}
+.search-icon{
+  display: flex;
+  height: 70px;
+align-items: center;
+background-color: #f6f6f67c !important ;
+border: solid 2px #838F96;
+border-left: none;
+width: 20px;
+padding-right: 2rem !important;
+color: 
+#838F96;
+}
+.hint-container {
+  position: absolute !important;
+  width: 246px;
+  height: 98px;
+  bottom: 100px;
+  left: 100px;
+  gap: 0px;
+  border-radius: 8px 0px 0px 0px;
+  border: 1px 0px 0px 0px;
+  opacity: 0px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 10px;
+  padding-left: 3rem;
+}
+.hint-container .card{
+  display: flex;
+width: 50% !important;
+
+}
+.hint-container .card span{
+  background-color: #4C3FD7;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  border-radius: 50%;
+}
+.doctor{
+background-color: 
+#DFDDF5 !important;
+}
+.onlin{
+  background-color: #9BDA8C !important;
+}
+.nolg{
+  background-color: 
+  #F5E6FD !important;
+}
+.help {
+  position: absolute !important;
+  width: 246px;
+  height: 98px;
+  bottom: 200px;
+  left:50%
+  
+}
+.help-p{
+  background-color: black !important;
+  color: white !important;
+  font-size: 2rem !important;
+  border: solid 1px white !important;
+  padding: 3rem 5rem;
+  border-radius: 15px;
+  text-decoration: none !important;
+  font-weight: bold;
+}
+.help-p:hover{
+  background-color: black !important;
+  color: white !important;
+  font-size: 2rem !important;
+  border: solid 1px white !important;
+  padding: 3rem 5rem;
+  border-radius: 15px;
+  text-decoration: none !important;
+  font-weight: bold;
+}
+.edit-icon,
+.save-btn {
+    cursor: pointer;
+    margin-left: 5px;
+}
+.save-btn{
+ padding: 1rem 2rem;
+  display: none;
+  background-color: #2D39A7;
+  color: #f7f2f2;
+  border: solid 1px #4C3FD7;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+  margin-left: 5rem;
+  border-radius: 10px;
+  text-decoration: none;
+}
+.save-btn:hover{
+  padding: 1rem 2rem;
+  display: none;
+  background-color: #f3f3f7;
+  color: #4741b4;
+  border: solid 1px #4C3FD7;
+}
+.edit-icon{
+  color: #2D39A7;
+}
+
+.edit-input {
+  display: none;
+  width: 100%;
+  border-radius: 8px !important;
+  height: 2.5rem !important;
+  margin-bottom: 1rem;
+  border: solid 2px #4C3FD7;
+  padding: 15px;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.preview {
+  width:100%;
+}
+.edit-icos{
+  color: #f7f8fd;
+}

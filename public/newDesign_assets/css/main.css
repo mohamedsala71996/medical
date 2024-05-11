@@ -1,0 +1,452 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Scheherazade+New:wght@400;500;600;700&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Scheherazade New", serif;
+    font-weight: 400;
+    font-style: normal;
+ 
+}
+:root {
+  --main-font: #5B70FD;
+  --secone-font: #FFFFFF;
+  --linear: #2D39A7;
+}
+.form-control , .form-select{
+    height: 47px!important;
+    
+}
+ 
+
+
+#carouselExampleIndicators li {
+  background-color: white;
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+}
+#carouselExampleIndicators .active {
+  background-color: #4C3FD7;
+}
+ 
+
+.input-group-text {
+  background-color: white !important;
+}
+ 
+/* input */
+html[dir="rtl"] .input-group-text {
+    border-left: 0!important;
+ 
+
+  }
+  html[dir="rtl"] .val  {
+    border-radius: 4px 0 0 4px!important;
+  }
+  html[dir="ltr"]  .val  {
+    border-radius: 0 4px 4px 0 !important;
+  }
+  
+html[dir="rtl"] .val{
+    border-right: 0!important;
+
+} 
+html[dir="ltr"] .val{
+    border-left: 0!important;
+}
+html[dir="rtl"] .input-group-text {
+  border-radius: 0 8px 8px 0 !important;
+   
+}
+.form-select{
+width: 98%!important;
+height: 43px;
+margin: 0;
+}
+@media (max-width: 528px) {
+  .val , .screen {
+    width: 90%;
+  }
+}
+
+@media (min-width: 529px) {
+  .val  ,.screen{
+    width: 500px;
+  }
+}
+
+.file-upload {
+  display: block;
+  text-align: center;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  height: 47px;
+}
+.file-upload .file-select {
+  display: block;
+ height: 47px;
+  color: #0d6efd;
+  cursor: pointer;
+  height: 47px;
+  line-height: 47px;
+  text-align: left;
+  background: #ffffff;
+  overflow: hidden;
+  position: relative;
+}
+.file-upload .file-select .file-select-button {
+ 
+  background: #ffffff;
+  padding: 0 10px;
+  display: inline-block;
+  height: 47px;
+  line-height: 47px;
+}
+.file-upload .file-select .file-select-name {
+  line-height: 47px;
+  display: inline-block;
+  padding: 0 10px;
+}
+.file-upload .file-select:hover {
+  border-color: #34495e;
+  transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+}
+.file-upload .file-select:hover .file-select-button {
+  background: #1f262c;
+  color: #fff;
+  transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+}
+.file-upload.active .file-select {
+  border-color: #4C3FD7;
+  transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+}
+.file-upload.active .file-select .file-select-button {
+  background: #4C3FD7;
+  color: #fff;
+  transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+}
+.file-upload .file-select input[type="file"] {
+  z-index: 100;
+  cursor: pointer;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  filter: alpha(opacity=0);
+}
+.file-upload .file-select.file-select-disabled {
+  opacity: 0.65;
+}
+ 
+ 
+.file-upload .file-select.file-select-disabled:hover .file-select-name {
+  line-height: 47px;
+  display: inline-block;
+  padding: 0 10px;
+}
+
+
+
+
+/* otp verification */
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900&display=swap');
+
+button:focus,
+input:focus{
+  outline: none;
+  box-shadow: none;
+  color: #4C3FD7;
+}
+a,
+a:hover{
+  text-decoration: none;
+
+}
+
+body{
+  font-family: 'Roboto', sans-serif;
+}
+
+.otp-form-group{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.otp-inputbar{
+    width: 80px;
+    height: 70px!important;
+    border-radius: 4px;
+    text-align: center;
+    margin-right: 10px;
+    font-size: 20px;
+     background-color: #f7f2f2;
+    color: #4C3FD7;
+    border: solid 1px #4741b4;
+    
+}
+.otp-inputbar :hover{
+  width: 80px;
+  height: 70px!important;
+  border-radius: 4px;
+  text-align: center;
+  margin-right: 10px;
+  font-size: 20px;
+
+  background-color: #f7f2f2;
+  color: #4C3FD7;
+  border: solid 1px #4741b4;
+}
+#errmsg
+{
+color: red;
+font-size: 18px;
+}
+ 
+/* otp verification */
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+.error-message {
+  color: red;
+  font-size: 12px;
+ 
+}
+
+
+
+
+.ap-n{
+  background-color: #4741b4;
+  color: white;
+  border: solid 1px #4741b4;
+}.ap-n:hover{
+  background-color: #f6f6fc;
+  color: #4741b4;
+  border: solid 1px #4741b4;
+}
+.ap-p{
+  background-color: #f6f6fc;
+  color: #4741b4;
+  border: solid 1px #4741b4;
+}
+.ap-p:hover:hover{
+  background-color: #4741b4;
+  color: white;
+  border: solid 1px #4741b4;
+}
+
+
+
+/*prfle*/
+.profile-header {
+  background: var(--gold-linear, linear-gradient(315deg, var(--main-font), var(--linear)));
+  height: 50vh;
+  text-align: center;
+}
+.profile-header img {
+  max-width: 50%;
+  margin-top: 3rem;
+}
+
+.profile-header h1 {
+  text-transform: capitalize;
+  color: var(--secone-font);
+ font-weight: bold;
+ 
+}
+.profil-info .card {
+  box-shadow: 0 3px 7px rgb(64, 97, 241);
+}
+
+.profil-info .t-title {
+  padding-top: 1rem;
+  display: flex;
+}
+
+.profil-info .t-title img {
+  max-width: 2rem;
+  max-height: 1.5rem;
+  margin-right: 1rem;
+  margin-left: 2rem;
+}
+
+.profil-info .t-content p a img {
+  max-width: 2rem;
+  max-height: 1.5rem;
+  margin-right: 1rem;
+  margin-left: 2rem;
+}
+
+.ico {
+  max-width: 2rem;
+  max-height: 1.5rem;
+  margin-right: 1rem;
+  margin-left: 2rem;
+}
+
+.x-ray p {
+  color: var(--main-font);
+}
+
+.x-r-i {
+  margin-left: 5rem;
+  width: 25%;
+}
+
+.p-p {
+  color: var(--main-font);
+  font-weight: bold;
+}
+
+.p-b {
+  color: var(--linear);
+  margin-left: 10rem;
+  font-weight: 600;
+  font-weight: bold;
+}
+.edit-icon,
+.save-btn {
+    cursor: pointer;
+    margin-left: 5px;
+}
+.save-btn{
+  height: 2.5rem;
+  display: none;
+  background-color: #2D39A7;
+  color: #f7f2f2;
+  border: solid 1px #4C3FD7;
+}
+.save-btn:hover{
+  height: 2.5rem;
+  display: none;
+  background-color: #f3f3f7;
+  color: #4741b4;
+  border: solid 1px #4C3FD7;
+}
+.edit-icon{
+  color: #2D39A7;
+}
+
+.edit-input {
+  display: none;
+  width: 25%;
+  border-radius: 8px !important;
+  height: 2.5rem !important;
+  margin-left: 2rem !important;
+  border: solid 2px #4C3FD7;
+  padding: 15px;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.preview {
+  width:100%;
+}
+.edit-icos{
+  color: #f7f8fd;
+}
+
+@media screen and (max-width: 768px) {
+  .p-b {
+      color: var(--linear);
+      margin-left: 3rem;
+  }
+}
+@media (max-width: 576px) {
+  .edim-input{
+    width: 3rem;
+  }}
+
+/*profile-info*/
+/*this is end css for profile page */
+/* Dropdown Button */
+.dropbtn {
+ color: white !important;
+ font-size: 3rem !important;
+ margin-left: 3rem;
+  cursor: pointer;
+}
+
+/* Dropdown button on hover & focus */
+.dropbtn:hover, .dropbtn:focus {
+  background-color:white;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  margin-left: 4rem;
+
+}
+.dropdown-content:hover {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  margin-left: 4rem;
+  border: solid 2px #4741b4;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+  background-color: transparent !important;
+}
+
+.chek-i {
+  color: #2D39A7;
+  font-size: 1rem !important;
+  margin-right: 5rem;
+  display: none;
+  font-weight: bold !important;;
+}
+
+/* إظهار .chek-i عندما يتم النقر على الرابط */
+.dropdown-content a:focus .chek-i,
+.dropdown-content a:active .chek-i {
+  display: block;
+}
+
