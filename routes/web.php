@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\ForgotPasswordController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -11,9 +12,9 @@ Route::get('test', function () {
 
     return "Event has been sent!";
 });
-
 Auth::routes();
-Route::group(['middleware' => 'auth'], function () {
+Route::get('forgetPasswordEmail', [ForgotPasswordController::class, 'forgetPasswordEmail'])->name('forgetPasswordEmail');
+Route::middleware(['auth'])->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
     Route::post('message', 'App\Http\Controllers\HomeController@sendMessage'); //
@@ -49,5 +50,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('my-notifications', 'App\Http\Controllers\NotificationsController@myNotifications')->name('my-notifications');
     Route::post('/broadcast', 'App\Http\Controllers\PusherController@broadcast');
     Route::post('/receive', 'App\Http\Controllers\PusherController@receive');
+    Route::get('/terms/{accept}', 'App\Http\Controllers\TermsController@update')->name('terms');
+
 
 });
