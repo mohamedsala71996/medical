@@ -37,13 +37,17 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request,[
+            'post_id'=>'required',
+            'comment'=>'required'
+        ]);
         $comment=new Comment();
         $comment->post_id=$request->post_id;
         $comment->user_id=Auth::user()->id;
         $comment->comment=$request->comment;
         $comment->save();
 
-        toastr()->warning(trans('main.comment_published'));
+        toastr()->success(trans('main.comment_published'));
 
         return back();
     }
@@ -90,11 +94,10 @@ class CommentController extends Controller
      */
     public function destroy($id)
     {
-        dd('jjj');
         $comment=Comment::find($id);
         $comment->delete();
 
-        toastr()->warning(trans('main.comment_published'));
+        toastr()->success(__('Comment deleted successfully.'));
 
         return back();
     }

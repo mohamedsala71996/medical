@@ -94,7 +94,10 @@ class PostesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+       $post= Post::FindOrFail($id);
+       $post->body=$request->body;
+       $post->save();
+       return back();
     }
 
     /**
@@ -105,6 +108,8 @@ class PostesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post= Post::FindOrFail($id);
+        $post->delete();
+        return back();
     }
 }
