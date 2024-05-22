@@ -53,7 +53,7 @@
                                 @if($user->image)
                                     <img src="{{url('/'.$user->image)}}">
                                 @else
-                                <img src="{{url('/')}}/site/images/resources/user-avatar.jpg" alt="">
+                                <img src="{{url('/')}}/site/images/resources/empty.png" alt="">
                                 @endif
                                 <form  method="post" action="{{route('siteProfile.store')}}" class="edit-phto" enctype="multipart/form-data">
                                     @csrf
@@ -81,7 +81,7 @@
 
                                 </li>
                                 <li>
-                                    <a class="active" href="time-line.html" title="" data-ripple="">عني</a>
+                                    <a class="active" href="" title="" data-ripple="">عني</a>
 
                                     <a class="" href="timeline-groups.html" title="" data-ripple="">المجموعات</a>
                                  
@@ -106,19 +106,19 @@
                                     <div class="about">
                                         <div class="personal">
                                             <h5 class="f-title"><i class="ti-info-alt"></i> Personal Info</h5>
-                                            <p>
+                                            {{-- <p>
                                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                            </p>
+                                            </p> --}}
                                         </div>
                                         <div class="d-flex flex-row mt-2">
                                             <ul class="nav nav-tabs nav-tabs--vertical nav-tabs--left">
                                                 <li class="nav-item">
                                                     <a href="#basic" class="nav-link" data-toggle="tab">Basic info</a>
                                                 </li>
-                                                <li class="nav-item">
-                                                    <a href="#location" class="nav-link" data-toggle="tab">location</a>
-                                                </li>
-                                                <li class="nav-item">
+                                                {{-- <li class="nav-item"> --}}
+                                                    {{-- <a href="#location" class="nav-link" data-toggle="tab">location</a> --}}
+                                                {{-- </li> --}}
+                                                {{-- <li class="nav-item">
                                                     <a href="#work" class="nav-link active show" data-toggle="tab">work and education</a>
                                                 </li>
                                                 <li class="nav-item">
@@ -126,19 +126,20 @@
                                                 </li>
                                                 <li class="nav-item">
                                                     <a href="#lang" class="nav-link" data-toggle="tab">languages</a>
-                                                </li>
+                                                </li> --}}
                                             </ul>
                                             <div class="tab-content">
                                                 <div class="tab-pane fade" id="basic">
                                                     <ul class="basics">
-                                                        <li><i class="ti-user"></i>sarah grey</li>
-                                                        <li><i class="ti-map-alt"></i>live in Dubai</li>
-                                                        <li><i class="ti-mobile"></i>+1-234-345675</li>
-                                                        <li><i class="ti-email"></i><a href="https://wpkixx.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3c4553494e515d55507c59515d5550125f5351">[email&nbsp;protected]</a></li>
-                                                        <li><i class="ti-world"></i>www.yoursite.com</li>
+                                                        <li><i class="ti-user"></i>{{ $data['user']->name }}</li>
+                                                        {{-- <li><i class="ti-map-alt"></i>live in Dubai</li> --}}
+                                                        <li><i class="ti-mobile"></i>{{ $data['user']->phone }}</li>
+                                                        <li><i class="ti-email"></i>{{ $data['user']->email }}</li>
+                                                        {{-- <li><i class="ti-email"></i><a href="https://wpkixx.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3c4553494e515d55507c59515d5550125f5351">[email&nbsp;protected]</a></li> --}}
+                                                        {{-- <li><i class="ti-world"></i>www.yoursite.com</li> --}}
                                                     </ul>
                                                 </div>
-                                                <div class="tab-pane fade" id="location" role="tabpanel">
+                                                {{-- <div class="tab-pane fade" id="location" role="tabpanel">
                                                         <label for="location" class="col-2 col-form-label">الموقع على الخريطة <span
                                                                 class="text-danger">*</span></label>
                                                         <div class="col-10">
@@ -171,7 +172,7 @@
                                                         <li>french</li>
                                                         <li>spanish</li>
                                                     </ul>
-                                                </div>
+                                                </div> --}}
                                             </div>
                                         </div>
                                     </div>
@@ -266,7 +267,7 @@
     //map initial value
     var centreGot = false;
 </script>
-    {!!$maps['maps']['js']!!}
+    {{-- {!!$maps['maps']['js']!!} --}}
 
 <script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="{{url('/')}}/site/js/main.min.js"></script>
 <script src="{{url('/')}}/site/js/script.js"></script>

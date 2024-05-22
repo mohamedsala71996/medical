@@ -29,7 +29,10 @@
                 <div class="col-lg-4 mx-auto">
                     <div class="auth-form-light text-right p-5">
                         <div class="brand-logo text-center" >
-                            <img src="{{get_file($settings->logo)}}">
+                            @php
+                                $setting=\App\Models\Setting::first();
+                            @endphp
+                            <img src="{{asset('upload/'.$setting->logo)}}">
                         </div>
                         <form class="pt-3" method="Post" id="loginform" action="{{ route('admin.login.submit') }}">
                             {{ csrf_field() }}

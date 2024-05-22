@@ -15,7 +15,7 @@
   @else
   <a class="btn btn-light" href="/group/create">Make group</a>
     <a class="btn btn-light" href="/subscribe">Join group</a>
-    @if($users)
+    {{-- @if($users)
      <a href="" style='padding: 11px 24px;'>
        <i class='fas fa-bell' style='font-size:28px;color:red'></i>
        </a>  
@@ -29,7 +29,7 @@
        </div>
     @else
        <i class='fas fa-bell-slash' style='font-size:28px;color:blue;padding: 11px 24px;'></i>
-    @endif
+    @endif --}}
     <div class="dropdow">
       <button class="dropbt">
         {{ Auth::user()->name }} 

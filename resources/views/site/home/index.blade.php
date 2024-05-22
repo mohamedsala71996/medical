@@ -50,9 +50,9 @@
         <div class="friend-info">
             <figure>
                 @if ($post->user() && $post->user->image == null)
-                <img src="{{ url('/') }}/site/images/resources/nearly1.jpg" alt="">
+                <img src="{{ url('/') }}/site/images/resources/empty.png" alt="">
                 @else
-                <img src="{{ url('/') }}/site/images/resources/nearly1.jpg" alt="">
+                <img src="{{url('/'.$post->user->image)}}" alt="">
                 @endif
             </figure>
             <div class="friend-name">
@@ -99,7 +99,11 @@
                 @foreach ($comments as $comment)
                 <li>
                     <div class="comet-avatar">
-                        <img src="{{ url('/') }}/site/images/resources/comet-1.jpg" alt="">
+                        @if ($post->user() && $comment->user->image == null)
+                        <img src="{{ url('/') }}/site/images/resources/empty.png" alt="">
+                        @else
+                        <img src="{{url('/'.$comment->user->image)}}" alt="">
+                        @endif
                     </div>
                     <div class="we-comment">
                         <div class="coment-head">
@@ -125,8 +129,11 @@
                 @if (Auth::check())
                 <li class="post-comment">
                     <div class="comet-avatar">
-                        <img src="{{ url('/') }}/site/images/resources/comet-2.jpg" alt="">
-                    </div>
+                        @if (auth()->user()->image == null)
+                        <img src="{{ url('/') }}/site/images/resources/empty.png" alt="">
+                        @else
+                        <img src="{{url('/'.auth()->user()->image)}}" alt="">
+                        @endif                    </div>
                     <div class="post-comt-box">
                         <form action="{{ route('comments.store') }}" method="post">
                             @csrf

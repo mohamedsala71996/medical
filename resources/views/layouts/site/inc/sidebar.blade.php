@@ -3,17 +3,17 @@
         <div class="widget">
             <h4 class="widget-title">{{trans('main.Shortcuts')}}</h4>
             <ul class="naves">
-                <li>
+                {{-- <li>
                     <i class="ti-clipboard"></i>
                     <a href="{{url('posts/create')}}" title="{{trans('main.NewPost')}}">{{trans('main.NewPost')}}</a>
-                </li>
+                </li> --}}
                 <li>
                     <i class="ti-mouse-alt"></i>
                     <a href="{{url('/')}}" title="{{trans('main.Home')}}">{{trans('main.Home')}}</a>
                 </li>
                 <li>
                     <i class="ti-files"></i>
-                    <a href="{{url('/profile')}}" title="{{trans('main.MyProfile')}}">{{trans('main.MyProfile')}}</a>
+                    <a href="{{url('siteProfile')}}" title="{{trans('main.MyProfile')}}">{{trans('main.MyProfile')}}</a>
                 </li>
 
                 <li>

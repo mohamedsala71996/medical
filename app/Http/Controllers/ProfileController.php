@@ -40,7 +40,7 @@ class ProfileController extends Controller
 
             }
 
-            return view('site.profile.myProfile',$data);
+            return view('site.profile.myProfile',compact('data','user'));
 
         }else{        return redirect(url('/'));
         }
