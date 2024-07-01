@@ -26,7 +26,7 @@
 
         // Define custom icons
         var activeIcon = L.icon({
-            iconUrl: '{{ asset('img/blue.png') }}',
+            iconUrl: '{{ asset('img/active.png') }}',
             iconSize: [52, 52],
             iconAnchor: [12, 41],
             popupAnchor: [1, -34],
@@ -34,7 +34,7 @@
         });
 
         var criticalIcon = L.icon({
-            iconUrl: '{{ asset('img/red.png') }}',
+            iconUrl: '{{ asset('img/critical.png') }}',
             iconSize: [52, 52],
             iconAnchor: [12, 41],
             popupAnchor: [1, -34],
@@ -54,10 +54,20 @@
                     closeOnClick: false, // Prevent popup from closing when the map is clicked
                     className: 'custom-popup', // Custom CSS class for the popup
                 };
+                var userType = {!! json_encode([
+                    '1' => __('Normal user'),
+                    '2' => __('Doctor'),
+                    '3' => __('Clinical nutrition specialist'),
+                ]) !!};
+
                 var marker = L.marker([{{ $location->latitude }}, {{ $location->longitude }}], {
                         icon: icon
                     }).addTo(map)
-                    .bindPopup("User Name: {{ $location->user->name }}<br>User Status: {{ $location->status }}<br>User Type: {{ $location->user->type == 1 ? 'normal user' : ($location->user->type == 2 ? 'Doctor' : 'Clinical nutrition specialist') }}", popupOptions)
+                    .bindPopup(`
+                        {{ __('User Name') }}: {{ $location->user->name }}<br>
+                        {{ __('User Status') }}: {{ $location->status == 'active' ? __('active') : __('critical*') }}<br>
+                        {{ __('User Type') }}: ${userType[{{ $location->user->type }}]}
+                    `, popupOptions)
                     .openPopup();
                 // Add click event listener to redirect to the chat route
                 @php

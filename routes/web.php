@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\MapGlobalChatsController;
 use App\Http\Controllers\MapGroupController;
@@ -93,4 +94,5 @@ Route::middleware(['auth'])->group(function () {
 
 
 });
+Route::get('/localization/{locale}',[LocaleController::class, 'changeLocale'])->name('localeChange');
 
