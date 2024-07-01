@@ -48,7 +48,7 @@
                                 <th>الجوال</th>
                                 <th>الصورة</th>
                                 <th>الحالة</th>
-                                <th>التحكم</th>
+                                {{-- <th>التحكم</th> --}}
                             </tr>
                             </thead>
                             <tbody>
@@ -58,7 +58,7 @@
                                     <td>{{$driver->name}}</td>
                                     <td>{{$driver->phone}}</td>
                                     <td>
-                                        <img src="{{get_file($driver->logo)}}" width="50px" height="50px" >
+                                        <img src="{{asset($driver->image)}}" width="50px" height="50px" >
 
                                     </td>
                                     <td>
@@ -68,7 +68,7 @@
                                             <span class="badge badge-danger"> موقوف</span>
                                         @endif
                                     </td>
-                                    <td>
+                                    {{-- <td>
                                         <button class="btn btn-gradient-danger  btn-sm delete"
                                                 style="padding: 10px"
                                                 id="{{$driver->id}}">
@@ -89,7 +89,7 @@
                                                    ">
                                              عرض<i class="mdi mdi-view-agenda"></i>
                                         </a>-->
-                                    </td>
+                                    </td> --}}
                                 </tr>
                             @endforeach
 

@@ -25,6 +25,7 @@ class User extends Authenticatable
         'password',
         'phone',
         'terms',
+        'status',
     ];
 
     /**
@@ -69,6 +70,11 @@ class User extends Authenticatable
     public function receivesBroadcastNotificationsOn()
     {
         return 'users.'.$this->id;
+    }
+
+    public function adminOfGroup()
+    {
+        return $this->hasOne(MapGroup::class, 'admin_id'); // user can be admin on one group only and group has only one admin 
     }
 
 }

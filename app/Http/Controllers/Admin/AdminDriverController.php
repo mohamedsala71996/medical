@@ -36,7 +36,7 @@ class AdminDriverController extends Controller
     public function index()
     {
         $drivers = User::
-           where('type',2)
+           where('type',2)->orWhere('type',3)
             ->latest()
             ->get();
         return view('admin.drivers.index',compact('drivers'));

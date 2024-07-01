@@ -66,7 +66,7 @@
                     @csrf
                     @method('PUT')
 {{--
-                    <input type="hidden" name="id" value="{{$->id}}">
+                    <input type="hidden" name="id" value="{{$id}}">
 --}}
                     <div class="row">
                         <div class="col-md-12">

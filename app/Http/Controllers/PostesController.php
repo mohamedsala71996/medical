@@ -23,13 +23,13 @@ class PostesController extends Controller
     }
     public function index()
     {
-        if (auth()->user()->terms == true) {
+        // if (auth()->user()->terms == true) {
             $data['posts']=Post::orderBy('id','desc')->with('comments')->get();
             return view('site.home.index', $data);
         
-        } else {
-            return view('site.home.terms');
-        }
+        // } else {
+            // return view('site.home.terms');
+        // }
 
 
     }

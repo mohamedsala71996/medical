@@ -1,101 +1,129 @@
+
+<style>
+    .sidebar {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.widget-title {
+    color: #343a40;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.naves li {
+    list-style: none;
+    margin: 10px 0;
+}
+
+.naves li a {
+    text-decoration: none;
+    color: #495057;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.naves li a:hover {
+    color: #007bff;
+}
+
+.naves li i {
+    margin-right: 10px;
+    color: #007bff;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+select {
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #ced4da;
+    margin-right: 10px;
+}
+.success-message {
+        color: green;
+        font-weight: bold;
+        display: none;
+        margin-top: 10px;
+    }
+
+</style>
 <div class="col-lg-3">
     <aside class="sidebar static">
         <div class="widget">
-            <h4 class="widget-title">{{trans('main.Shortcuts')}}</h4>
+            <h4 class="widget-title">{{ trans('main.Shortcuts') }}</h4>
             <ul class="naves">
-                {{-- <li>
-                    <i class="ti-clipboard"></i>
-                    <a href="{{url('posts/create')}}" title="{{trans('main.NewPost')}}">{{trans('main.NewPost')}}</a>
-                </li> --}}
+
                 <li>
                     <i class="ti-mouse-alt"></i>
-                    <a href="{{url('/')}}" title="{{trans('main.Home')}}">{{trans('main.Home')}}</a>
+                    <a href="{{ url('/') }}" title="{{ trans('main.Home') }}">{{ trans('main.Home') }}</a>
                 </li>
                 <li>
                     <i class="ti-files"></i>
-                    <a href="{{url('siteProfile')}}" title="{{trans('main.MyProfile')}}">{{trans('main.MyProfile')}}</a>
+                    <a href="{{ url('siteProfile') }}" title="{{ trans('main.MyProfile') }}">{{ trans('main.MyProfile') }}</a>
                 </li>
 
-                <li>
-                    <i class="ti-comments-smiley"></i>
-                    <a href="{{url('/group/create')}}"
-                        title="{{trans('main.CreateGroup')}}">{{trans('main.CreateGroup')}}</a>
-                </li>
                 @auth
-                <li>
-                    <i class="ti-bell"></i>
-                    <a href="{{url('/Notifications')}}"
-                        title="{{trans('main.Notifications')}}">{{trans('main.Notifications')}}
-                        <span id='notifications_count'>{{auth()->user()->unreadNotifications->count()}}</span><i
-                            class="ti-bell"></i>
-                    </a>
-                </li>
-                <li>
+                    <li>
+                        {{-- <h5>Update Status</h5> --}}
+                        <form id="status-form">
+                            @csrf
+                            {{-- <label for="status">Status:</label> --}}
+                            <select id="status" name="status">
+                                <option value="active">Active</option>
+                                <option value="critical">Critical</option>
+                                <option value="inactive">Inactive</option>
+                            </select>
+                            <button  type="button" onclick="updateStatus()">Update status</button>
+                        </form>
+                        <div class="success-message" id="success-message">Status updated successfully!</div>
+                        <br>
+                        {{-- @if (auth()->user()->adminOfGroup()->count() < 1)
+                        <form action="{{ route('groups.store') }}" method="post">
+                            @csrf
+                            <button type="submit"> <i class="ti-comments"></i> Create Group Chat</button>
+                        </form>
+                    @endif --}}
 
-                    <form action="{{url('/logout')}}" method="post">
-                        @csrf
-                        <button type="submit" class="active"> {{trans('main.Logout')}} <i
-                                class="ti-power-off"></i></button>
-                    </form>
-                </li>
+                        <form action="{{ route('users_location') }}" method="post">
+                            @csrf
+                            <button class="btn btn-info" type="submit">  <i class="ti-map"></i> Go to Map</button>
+                        </form>
+
+                        <script src="/js/status.js"></script>
+                        <script>
+                            function updateStatus() {
+                                document.getElementById('success-message').style.display = 'block';
+                                setTimeout(() => {
+                                    document.getElementById('success-message').style.display = 'none';
+                                }, 3000); // Hide after 3 seconds
+                                var status = document.getElementById('status').value;
+                                handleStatusChange(status);
+                            }
+                        </script>
+                    </li>
+                    <li>
+                        <form action="{{ url('/logout') }}" method="post">
+                            @csrf
+                            <button type="submit" class="active">{{ trans('main.Logout') }} <i class="ti-power-off"></i></button>
+                        </form>
+                    </li>
                 @endauth
-
-                <li>
-                    <i class="ti-share"></i>
-                    <form action="{{route('askForHelp')}}" method="post">
-                        @csrf
-                        <button type="submit" class="active"> {{trans('main.AskHelp')}} </button>
-                    </form>
-                    {{-- <a href="{{route('askForHelp')}}"
-                        title="{{trans('main.AskHelp')}}">{{trans('main.AskHelp')}}</a> --}}
-                </li>
-
-
             </ul>
         </div><!-- Shortcuts -->
-        <!--
-        <div class="widget">
-            <h4 class="widget-title">Recent Activity</h4>
-            <ul class="activitiez">
-                <li>
-                    <div class="activity-meta">
-                        <i>10 hours Ago</i>
-                        <span><a href="#" title="">Commented on Video posted </a></span>
-                        <h6>by <a href="time-line.html">black demon.</a></h6>
-                    </div>
-                </li>
-                <li>
-                    <div class="activity-meta">
-                        <i>30 Days Ago</i>
-                        <span><a href="#" title="">Posted your status. “Hello guys, how are you?”</a></span>
-                    </div>
-                </li>
-                <li>
-                    <div class="activity-meta">
-                        <i>2 Years Ago</i>
-                        <span><a href="#" title="">Share a video on her timeline.</a></span>
-                        <h6>"<a href="#">you are so funny mr.been.</a>"</h6>
-                    </div>
-                </li>
-            </ul>
-        </div>&lt;!&ndash; recent activites &ndash;&gt;
--->
-        <div class="widget stick-widget">
-            <h4 class="widget-title">{{trans('main.NearstDoctors')}}</h4>
-            <ul class="followers">
-                @foreach($doctors as $doctor)
-                <li>
-                    <figure>
-                        <img src="{{asset($doctor->image)}}" alt="">
-                        <span class="status f-online"></span>
-                    </figure>
-                    <div class="friendz-meta">
-                        <a href="time-line.html">{{$doctor->name}}</a>
-                        <i><a href="https://wpkixx.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="13647a7d677661607c7f77766153747e727a7f3d707c7e">[email&#160;protected]</a></i>
-                    </div>
-                </li>
-                @endforeach
-            </ul>
-        </div><!-- who's following -->
     </aside>
 </div><!-- sidebar -->

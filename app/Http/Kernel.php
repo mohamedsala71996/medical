@@ -69,6 +69,6 @@ class Kernel extends HttpKernel
         'member' => \App\Http\Middleware\GroupMember::class,
         'admin' =>\App\Http\Middleware\Admin::class ,
         'Lang' =>\App\Http\Middleware\Lang::class,
-        'terms' =>\App\Http\Middleware\Terms::class,
+        // 'terms' =>\App\Http\Middleware\Terms::class,
     ];
 }

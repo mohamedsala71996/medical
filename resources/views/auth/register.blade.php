@@ -90,6 +90,7 @@
                     <option selected disabled>Choose</option>
                     <option value="1" data-Lang="user">مستخدم</option>
                     <option value="2" data-Lang="doctor" >طبيب</option>
+                    <option value="3" data-Lang="Clinical nutritionist" >اخصائي تغذية علاجية</option>
                 </select>  
                 </div> 
                 

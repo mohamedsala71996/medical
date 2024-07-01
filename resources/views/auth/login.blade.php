@@ -75,8 +75,7 @@
                 </div>
             @endif
             <div class="">
-                <label for="validationCustomUsername" class="form-label"
-                    data-Lang="Photo_Personal_Card">Username</label>
+                <label for="validationCustomUsername" class="form-label" data-Lang="Photo_Personal_Card">Email</label>
 
                 <div class="">
 

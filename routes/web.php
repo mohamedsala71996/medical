@@ -1,6 +1,12 @@
 <?php
 
 use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\LocationController;
+use App\Http\Controllers\MapGlobalChatsController;
+use App\Http\Controllers\MapGroupController;
+use App\Http\Controllers\MapMessageController;
+use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -24,7 +30,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/messag/{id}', 'App\Http\Controllers\HomeController@getMessag')->name('message');
     Route::get('/subscribe', 'App\Http\Controllers\HomeController@subscribe');
     Route::delete('/unFollow/{id}', 'App\Http\Controllers\HomeController@remove_user');
-/////////////////////
+    /////////////////////
     Route::get('/group/create', 'App\Http\Controllers\GroupController@create_form');
     Route::post('/group/create', 'App\Http\Controllers\GroupController@create');
     Route::get('/group/join', 'App\Http\Controllers\GroupController@join_form');
@@ -50,7 +56,41 @@ Route::middleware(['auth'])->group(function () {
     Route::get('my-notifications', 'App\Http\Controllers\NotificationsController@myNotifications')->name('my-notifications');
     Route::post('/broadcast', 'App\Http\Controllers\PusherController@broadcast');
     Route::post('/receive', 'App\Http\Controllers\PusherController@receive');
-    Route::get('/terms/{accept}', 'App\Http\Controllers\TermsController@update')->name('terms');
+    // Route::get('/terms/{accept}', 'App\Http\Controllers\TermsController@update')->name('terms');
+
+    //-------------------------{-- Map Routes --}-------------------------
+
+    Route::get('/map', function () {
+        return view('location.map');
+    });
+    Route::get('/update-status', function () {
+        return view('location.status');
+    });
+    Route::post('/save-location', [LocationController::class, 'saveLocation'])->name('saveLocation');
+    Route::post('/delete-location', [LocationController::class, 'deleteLocation']);
+    Route::post('/update-status', [UserController::class, 'updateStatus']);
+    Route::post('/update-status', [UserController::class, 'updateStatus']);
+    Route::get('/get-locations', [LocationController::class, 'getLocations']);
+    Route::post('/users_locations', [LocationController::class, 'showLocations'])->name('users_location');
+
+    Route::get('/dashboard', function () {
+        return view('map_chat.dashboard');
+    });
+    //private chat
+    Route::get('/chat/{user_id}', [MapMessageController::class, 'index'])->name('chat.index')->middleware('auth');
+    Route::post('/chat/{user_id}', [MapMessageController::class, 'store'])->middleware('auth');
+
+    //global chat
+    Route::get('/globalChat', [MapGlobalChatsController::class, 'index'])->name('globalChat.index')->middleware('auth');
+    Route::post('/globalChat', [MapGlobalChatsController::class, 'store'])->middleware('auth');
+
+    //groups chat
+    Route::get('/group/{id}', [MapGroupController::class, 'index'])->name('group_caht.index')->middleware('auth');
+
+    Route::post('/group/{id}', [MapGroupController::class, 'messageStore'])->middleware('auth');
+
+    Route::post('/groups', [MapGroupController::class, 'store'])->name('groups.store')->middleware('auth');
 
 
 });
+

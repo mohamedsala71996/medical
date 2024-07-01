@@ -19,7 +19,7 @@ class AdminBankController extends Controller
      */
     public function index()
     {
-        $banks=Bank::latest()->get();
+        $banks= Bank::latest()->get();
         return view('admin.banks.index',compact('banks'));
     }
 

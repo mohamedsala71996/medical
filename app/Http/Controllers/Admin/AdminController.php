@@ -21,8 +21,9 @@ class AdminController extends Controller
     public function index()
     {
         $data['admins']=Admin::all();
-        $data['today_android']=User::where('type',1)->get();
-        $data['today_ios']=User::where('type',2)->get();
+        $data['users']=User::where('type',1)->get();
+        $data['docs']=User::where('type',2)->get();
+        $data['nutrition']=User::where('type',3)->get();
         return view('admin.home.dashboard')->with($data);
     }
 
