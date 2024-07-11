@@ -11,8 +11,41 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
 </script>
+<style>
+    #status {
+    font-weight: bold;
+}
 
+.status-active {
+    color: green;
+}
+
+.status-critical {
+    color: red;
+}
+
+.status-inactive {
+    color: gray;
+}
+</style>
 @section('content')
+@php
+   $location= App\Models\Location::where('user_id',auth()->user()->id)->first() ?? '';
+@endphp
+    <div class="text-center">
+        <span>
+            <span id="status" >{{ __('Status') }}:</span> 
+            @if ($location)
+            <span class="{{ $location->status == 'active' ? 'status-active' : ($location->status == 'critical' ? 'status-critical' : 'status-inactive') }}">
+                {{ $location->status == 'active' ? __('active') : ($location->status == 'critical' ? __('Critical ') : __('inactive')) }}
+            </span>
+            @else
+            <span class="status-inactive">
+                {{__('inactive') }}
+            </span>
+            @endif
+        </span>
+            </div>
     <div class="central-meta">
         @if (Auth::check())
             @if (auth()->user()->is_blocked == 0)

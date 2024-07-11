@@ -3,6 +3,7 @@
 @section('header')
     <link rel="stylesheet" href="{{ asset('admin/assets/vendors/datatables.net/dataTables.bootstrap4.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/plugins/sweetalert/sweetalert.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
     <style>
         div.dataTables_wrapper div.dataTables_filter {
@@ -15,92 +16,114 @@
     </style>
 @endsection
 
-
 @section('page-title')
-    {{-- عنوان الصفحة --}}
     العملاء
 @endsection
 
-
 @section('nav-links')
-    {{-- اضافة زرار --}}
 @endsection
 
 @section('content')
-
-    <div class="card"{{-- style="padding:0 !important;" --}}>
-        <div class="card-body" {{-- style="padding: 1.25rem !important;" --}}>
+    <div class="card">
+        <div class="card-body">
             <div class="row mb-4">
                 <h4 class="card-title col-10">العملاء</h4>
-
             </div>
             <div class="row">
                 <div class="col-12 table-responsive">
-                    <table id="order-listing" class="table display nowrap " cellspacing="0" width="100%">
-                        <?php
-                        $count = 1;
-                        ?>
-                        @if ($users->count() != null)
-                            <thead>
-                                <tr>
-                                    {{-- <th> #</th> --}}
-                                    <th>الأسم</th>
-                                    <th>الجوال </th>
-                                    <th>الصورة</th>
-                                    <th>الحالة</th>
-                                    {{-- <th>التحكم</th> --}}
-                                </tr>
-                            </thead>
-                            <tbody>
+                    <table id="order-listing" class="table display nowrap" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th>الأسم</th>
+                                <th>البريد الالكتروني</th>
+                                <th>الجوال </th>
+                                <th>الصورة</th>
+                                <th>الحالة</th>
+                                <th>الإجراء</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if ($users->count() > 0)
                                 @foreach ($users as $user)
                                     <tr>
-                                        {{-- <td>{{$count++}}</td> --}}
                                         <td>{{ $user->name }}</td>
+                                        <td>{{ $user->email }}</td>
                                         <td>{{ $user->phone }}</td>
                                         <td>
                                             <img src="{{ asset($user->image) }}" width="50px" height="50px">
-
                                         </td>
                                         <td>
-                                            @if ($user->is_blocked == 0)
-                                                <span class="badge badge-success"> مفعل</span>
+                                            @if ($user->is_approved == 1)
+                                                <span class="badge badge-success">مفعل</span>
                                             @else
-                                                <span class="badge badge-danger"> موقوف</span>
+                                                <span class="badge badge-danger">موقوف</span>
                                             @endif
                                         </td>
-                                        {{-- <td>
-                                            <button class="btn btn-gradient-danger  btn-sm delete" style="padding: 10px"
-                                                id="{{ $user->id }}">
-                                                حذف <i class="mdi mdi-delete"> </i>
-                                            </button>
-                                            <a href="{{ route('users.active', $user->id) }}"
-                                                class="btn btn-gradient-success  btn-sm" style="padding: 10px">
-
-                                                @if ($user->is_blocked == 0)
-                                                    ايقاف
-                                                @else
-                                                    تفعيل
-                                                @endif
-                                                <i class="mdi mdi-account-tie"></i>
-                                            </a>
-
-                                            <!--                                        <a class="btn btn-gradient-warning  btn-sm"  style="padding: 10px"
-                                               href="{{ route('users.show', $user->id) }}
-                                                   ">
-                                                 عرض<i class="mdi mdi-view-agenda"></i>
-                                            </a>-->
-                                        </td> --}}
+                                        <td>
+                                            <button class="btn btn-primary" data-toggle="modal" data-target="#approveModal-{{ $user->id }}">التفاصيل</button>
+                                        </td>
                                     </tr>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="approveModal-{{ $user->id }}" tabindex="-1" role="dialog" aria-labelledby="approveModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="approveModalLabel">تفاصيل العميل</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        <label>الاسم:</label>
+                                                        <p>{{ $user->name }}</p>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>البريد الالكتروني:</label>
+                                                        <p>{{ $user->email }}</p>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>الجوال:</label>
+                                                        <p>{{ $user->phone }}</p>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>الحالة:</label>
+                                                        @if($user->is_approved == 1)
+                                                            <p><span class="badge badge-success">مفعل</span></p>
+                                                        @else
+                                                            <p><span class="badge badge-danger">موقوف</span></p>
+                                                        @endif
+                                                    </div>
+
+                                                    <form action="{{ route('users.updateApproval', $user->id) }}" method="POST">
+                                                        @csrf
+                                                        @method('PATCH')
+                                                        <div class="form-group">
+                                                            <label>تفعيل / إلغاء التفعيل:</label>
+                                                            <select name="is_approved" class="form-control">
+                                                                <option value="1" {{ $user->is_approved == 1 ? 'selected' : '' }}>مفعل</option>
+                                                                <option value="0" {{ $user->is_approved == 0 ? 'selected' : '' }}>موقوف</option>
+                                                            </select>
+                                                        </div>
+                                                        <button type="submit" class="btn btn-success">حفظ</button>
+                                                    </form>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">إغلاق</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 @endforeach
                             @else
                                 <div class="alert alert-fill-danger">
-                                    <span style="font-weight: bold"> لا يوجد بيانات لعرضها</span>
+                                    <span style="font-weight: bold">لا يوجد بيانات لعرضها</span>
                                 </div>
-                        @endif
-
+                            @endif
                         </tbody>
                     </table>
-                    {{-- {{$users->links()}} --}}
+                    {{-- {{ $users->links() }} --}}
                 </div>
             </div>
         </div>
@@ -111,65 +134,6 @@
     <script src="{{ asset('admin/assets/vendors/datatables.net/jquery.dataTables.js') }}"></script>
     <script src="{{ asset('admin/assets/vendors/datatables.net/dataTables.bootstrap4.js') }}"></script>
     <script src="{{ asset('admin/plugins/sweetalert/sweetalert.min.js') }}"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-    <script>
-        $(document).ready(function() {
-            //--------------datatable----------------
-            $('#order-listing').DataTable({
-                "paging": true,
-                "ordering": true,
-                "info": false,
-                "language": {
-                    search: "بحث"
-                }
-            });
-            //---------------end datatable--------------
-            //---------------Delete--------------
-            $(document).on('click', '.delete', function() {
-                var id = $(this).attr('id');
-                console.log(id)
-                swal({
-                    title: "تحذير",
-                    text: "هل تريد حذف العنصر؟",
-                    type: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "حذف",
-                    cancelButtonText: "الغاء",
-                    okButtonText: "تأكيد",
-                    closeOnConfirm: false
-                }, function() {
-                    console.log(id)
-                    $.ajax({
-                        url: 'users/' + id,
-                        type: 'delete',
-                        data: {
-                            id: id
-                        },
-                        success: function(data) {
-                            console.log(data)
-                            if (data.error == 1) {
-                                swal({
-                                    title: "خطأ",
-                                    text: "فشل العملية !!",
-                                    type: "error",
-                                    confirmButtonText: "موافق"
-                                });
-                            } else {
-                                swal({
-                                    title: "بنجاح!!",
-                                    text: "لقد تمت العملية بنجاح",
-                                    type: "success",
-                                    confirmButtonText: "موافق"
-                                }, function() {
-                                    location.reload();
-                                });
-                            }
-                        }
-                    });
-                });
-            });
-            //---------------Delete--------------
-        });
-    </script>
 @endsection

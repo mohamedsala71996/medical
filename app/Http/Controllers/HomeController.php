@@ -16,6 +16,7 @@ use App\Models\Post;
 
 use View;
 use App\Events\GroupCreated;
+use App\Models\Location;
 
 class HomeController extends Controller
 {
@@ -164,5 +165,23 @@ class HomeController extends Controller
 
         return redirect()->to(route('groups.show', $group->id));
     }
+
+    public function logout(Request $request,$id)
+    {
+        $user = Auth::user();
+        if ($user && $user->status ) {
+            // $location = Location::where('user_id',$id)->first();
+            // $location->status ='inactive';
+            // $location->save();
+            Location::where('user_id', $user->id)->delete();
+        }
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/');
+    }
+
 
 }

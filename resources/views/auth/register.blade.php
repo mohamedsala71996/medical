@@ -3,8 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <title>{{ __('Register') }}</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -47,7 +46,7 @@
         </div>
     </div>
 
-    <form action="{{ route('register') }}" method="post" class="screen container-fluid m-auto row g-3 needs-validation justify-content-center align-items-center mb-5">
+    <form action="{{ route('register') }}" method="post" enctype="multipart/form-data" class="screen container-fluid m-auto row g-3 needs-validation justify-content-center align-items-center mb-5">
         @csrf
         <h3 class="pt-2 text-center fw-bold">{{ __('Register') }}</h3>
         <div class="mb-3 row p-0">
@@ -83,11 +82,11 @@
         <div class="row mt-3 p-0">
             <div class="input-group col-sm">
                 <label for="type" class="form-label">{{ __('Type') }}</label>
-                <select name="type" class="form-select col-sm border border-dark rounded overflow-hidden" aria-label="Default select example">
+                <select name="type" id="type" class="form-select col-sm border border-dark rounded overflow-hidden" aria-label="Default select example">
                     <option selected disabled>{{ __('Choose') }}</option>
                     <option value="1">{{ __('User') }}</option>
                     <option value="2">{{ __('Doctor') }}</option>
-                    <option value="3">{{ __('Clinical Nutritionist') }}</option>
+                    <option value="3">{{ __('Sugar intellectual') }}</option>
                 </select>
             </div>
             <div class="input-group col-sm">
@@ -97,6 +96,17 @@
                 </div>
             </div>
         </div>
+        <div class="row mt-3 p-0 d-none" id="file-inputs">
+            <div class="mb-3 col">
+                <label for="face_id_card" class="form-label">{{ __('Face ID Card') }}</label>
+                <input type="file" name="face_id_card" class="form-control border border-dark rounded d-block" id="face_id_card">
+            </div>
+            <div class="mb-3 col">
+                <label for="back_id_card" class="form-label">{{ __('Back ID Card') }}</label>
+                <input type="file" name="back_id_card" class="form-control border border-dark rounded d-block"  id="back_id_card">
+            </div>
+        </div>
+        
         <div class="mt-3 row p-0">
             <label for="phone_Number" class="form-label">{{ __('Phone Number') }}</label>
             <input style="width: 95%;" type="text" name="phone" class="m-auto form-control border border-dark rounded" id="phone_Number">
@@ -111,5 +121,15 @@
     <script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('newDesign_assets/js/main.js') }}"></script>
+    <script>
+        document.getElementById('type').addEventListener('change', function() {
+            var fileInputs = document.getElementById('file-inputs');
+            if (this.value == '2' || this.value == '3') {
+                fileInputs.classList.remove('d-none');
+            } else {
+                fileInputs.classList.add('d-none');
+            }
+        });
+    </script>
 </body>
 </html>

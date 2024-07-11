@@ -26,6 +26,10 @@ class User extends Authenticatable
         'phone',
         'terms',
         'status',
+        'face_id_card',
+        'back_id_card',
+        'date_of_birth',
+        'is_approved'
     ];
 
     /**

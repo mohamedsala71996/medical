@@ -10,6 +10,7 @@ use App\Http\Traits\Location;
 use App\Models\Country;
 use App\Rules\UpdatedUniqueAttribute;
 use App\Models\User;
+use Illuminate\Http\Request;
 use App\Models\CityModel;
 use App\Http\Controllers\Controller;
 
@@ -145,5 +146,15 @@ class AdminUserController extends Controller
         toastr()->success('تمت العملية بنجاح !','تهانينا');
         return redirect(route('users.index'));
     }//end
+
+
+    public function updateApproval(Request $request, $id)
+{
+    $user = User::findOrFail($id);
+    $user->is_approved = $request->input('is_approved');
+    $user->save();
+
+    return redirect()->back()->with('success', 'تم تحديث حالة المستخدم بنجاح');
+}
 
 }//end class

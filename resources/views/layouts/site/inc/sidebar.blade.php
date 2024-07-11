@@ -60,7 +60,21 @@
         display: none;
         margin-top: 10px;
     }
+    .nav-item {
+    position: relative;
+}
+
+.nav-item .badge {
+    position: absolute;
+    top: -5;
+    right:-5px;
+    transform: translate(50%, -50%);
+    background-color: red;
+    color: white;
+}
 </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
 <div class="col-lg-3">
     <aside class="sidebar static">
@@ -75,6 +89,14 @@
                     <i class="ti-files"></i>
                     <a href="{{ url('siteProfile') }}" title="{{ __('MyProfile') }}">{{ __('MyProfile') }}</a>
                 </li>
+                <li class="nav-item">
+                    <i class="fas fa-bell"></i>
+                    <a  href="{{ url('notifications') }}" title="{{ __('Notifications') }}">
+                        <span class="badge badge-danger">{{ App\Models\Notificaation::where('user_id','!=' ,Auth::id())->count() }}</span>
+                        {{ __('Notifications') }}
+                    </a>
+                </li>
+                        
                 @auth
                 <li>
                     <form id="status-form">
@@ -105,7 +127,7 @@
                     </script>
                 </li>
                 <li>
-                    <form action="{{ url('/logout') }}" method="post">
+                    <form action="{{ route('logout_status', auth()->user()->id) }}" method="post">
                         @csrf
                         <button type="submit" class="active">{{ __('Logout') }} <i class="ti-power-off"></i></button>
                     </form>
@@ -115,3 +137,40 @@
         </div>
     </aside>
 </div>
+<script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+<script>
+    // Enable pusher logging - don't include this in production
+    Pusher.logToConsole = true;
+
+    var pusher = new Pusher('{{ env('PUSHER_APP_KEY') }}', {
+        cluster: '{{ env('PUSHER_APP_CLUSTER') }}'
+    });
+
+    var channel = pusher.subscribe('status-updates');
+    channel.bind('App\\Events\\StatusUpdated', function(data) {
+        if (data.user_id !== {{ Auth::id() }}) { // Exclude notifications for the authenticated user
+            alert(data.username + ' has updated their status to ' + data.status);
+
+            // Update the notification badge count and content dynamically
+            var badge = document.querySelector('.badge');
+            var count = parseInt(badge.textContent) + 1;
+            badge.textContent = count;
+
+            // Append the new notification
+            var notificationsContainer = document.getElementById('notifications-container');
+            var notificationItem = document.createElement('div');
+            notificationItem.classList.add('notification-item');
+
+            var notificationContent = `
+                <div>
+                    <span class="badge badge-danger">Critical</span>
+                    <strong>${data.username}</strong>
+                </div>
+                <a href="/group/${data.group_id}" class="chat-link" data-id="${data.notification_id}">Chat Group</a>
+            `;
+
+            notificationItem.innerHTML = notificationContent;
+            notificationsContainer.appendChild(notificationItem);
+        }
+    });
+</script>

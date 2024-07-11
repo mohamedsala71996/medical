@@ -8,45 +8,19 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Register Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles the registration of new users as well as their
-    | validation and creation. By default this controller uses a trait to
-    | provide this functionality without requiring any additional code.
-    |
-    */
-
     use RegistersUsers;
 
-    /**
-     * Where to redirect users after registration.
-     *
-     * @var string
-     */
     protected $redirectTo = RouteServiceProvider::HOME;
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('guest');
     }
 
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
     protected function validator(array $data)
     {
         return Validator::make($data, [
@@ -54,26 +28,66 @@ class RegisterController extends Controller
             'type' => ['required', 'string', 'max:255'],
             'phone' => ['required', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'date_of_birth' => ['required', 'date'],
-            'password' => ['required', 'string', 'min:6','confirmed'],
+            'date_of_birth' => ['nullable', 'date'],
+            'password' => ['required', 'string', 'min:6', 'confirmed'],
+            'face_id_card' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,webp'],
+            'back_id_card' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,webp'],
         ]);
     }
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\Models\User
-     */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'type' => $data['type'],
-            'phone' => $data['phone'],
-            'date_of_birth' => $data['date_of_birth'],
-            'password' => Hash::make($data['password']),
-        ]);
+        $user = new User;
+        $user->name = $data['name'];
+        $user->email = $data['email'];
+        $user->type = $data['type'];
+        $user->phone = $data['phone'];
+        $user->date_of_birth = $data['date_of_birth'];
+        $user->password = Hash::make($data['password']);
+        $user->is_approved = $data['is_approved'];
+
+        if (isset($data['face_id_card'])) {
+            $faceIdPath = $data['face_id_card']->store('id_cards', 'public');
+            $user->face_id_card = $faceIdPath;
+        }
+
+        if (isset($data['back_id_card'])) {
+            $backIdPath = $data['back_id_card']->store('id_cards', 'public');
+            $user->back_id_card = $backIdPath;
+        }
+
+        $user->save();
+
+        return $user;
+    }
+
+    public function register(Request $request)
+    {
+    //    return $request;
+        $this->validator($request->all())->validate();
+
+        $data = $request->except('face_id_card','back_id_card');
+
+        if ($request->hasFile('face_id_card')) {
+            $data['face_id_card'] = $request->file('face_id_card');
+        }
+
+        if ($request->hasFile('back_id_card')) {
+            $data['back_id_card'] = $request->file('back_id_card');
+        }
+        if ($request->type == 1) {
+            $data['is_approved'] = 1;
+        } else {
+            $data['is_approved'] = 0;
+        }
+        $user = $this->create($data);
+
+        if ($user->type == 1) {
+            $this->guard()->login($user);
+            return $this->registered($request, $user)
+            ?: redirect($this->redirectPath());
+        }
+
+        return redirect()->route('login')->with('message', __('The card will be reviewed as soon as possible'));
     }
 }

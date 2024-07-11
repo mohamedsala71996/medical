@@ -6,6 +6,9 @@
     return redirect()->route('admin.dashboard');
 
 });*/
+
+use App\Http\Controllers\Admin\AdminDriverController;
+use App\Http\Controllers\Admin\AdminUserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\MapMessageController;
@@ -109,7 +112,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'Lang'], function () {
 
         Route::resource('terms', 'App\Http\Controllers\Admin\TermController');
 
+        Route::patch('/drivers/{id}/updateApproval', [AdminDriverController::class, 'updateApproval'])->name('drivers.updateApproval');
 
+        Route::patch('/users/{id}/updateApproval', [AdminUserController::class, 'updateApproval'])->name('users.updateApproval');
 
 
     });//end middleware admin

@@ -55,9 +55,16 @@
     </div>
 
     <div class="container-fluid d-flex justify-content-center val">
-        <form action="{{ route('login') }}" method="post" class="row g-3 needs-validation justify-content-center align-items-center mb-5">
+        <form action="{{ route('login') }}" method="post"
+            class="row g-3 needs-validation justify-content-center align-items-center mb-5">
             @csrf
             <h3 class="pt-2 text-center fw-bold">{{ __('login') }}</h3>
+            @if (session('message'))
+                <div class="alert alert-success">
+                    {{ session('message') }}
+                </div>
+            @endif
+
             @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -70,23 +77,28 @@
             <div class="mb-3">
                 <label for="validationCustomUsername" class="form-label">{{ __('Email') }}</label>
                 <div class="input-group custom-div border border-dark rounded overflow-hidden">
-                    <input type="text" class="form-control border-0" name="email" id="loginPassword" aria-describedby="inputGroupPrepend" required>
+                    <input type="text" class="form-control border-0" name="email" id="loginPassword"
+                        aria-describedby="inputGroupPrepend" required>
                     <div class="invalid-feedback">{{ __('Please insert email.') }}</div>
                 </div>
             </div>
             <div class="mb-3">
                 <label for="validationCustomUsername" class="form-label">{{ __('password') }}</label>
                 <div class="input-group custom-div border border-dark rounded overflow-hidden">
-                    <span class="input-group-text"><img src="{{ asset('newDesign_assets/img/pass.svg') }}" id="Pass" alt=""></span>
-                    <input placeholder="{{ __('password') }}" name="password" type="password" class="form-control border-0" id="password" aria-describedby="inputGroupPrepend" required>
+                    <span class="input-group-text"><img src="{{ asset('newDesign_assets/img/pass.svg') }}"
+                            id="Pass" alt=""></span>
+                    <input placeholder="{{ __('password') }}" name="password" type="password"
+                        class="form-control border-0" id="password" aria-describedby="inputGroupPrepend" required>
                     <div class="invalid-feedback">{{ __('Please insert password.') }}</div>
                 </div>
             </div>
             <a href="{{ route('forgetPasswordEmail') }}">{{ __('Forgot password') }}</a>
-            <button style="height: 42px;background-color: #4C3FD7;" class="btn btn-primary customHover" type="submit">{{ __('login') }}</button>
+            <button style="height: 42px;background-color: #4C3FD7;" class="btn btn-primary customHover"
+                type="submit">{{ __('login') }}</button>
             <div class="d-flex gap-1 justify-content-center m-auto p-3">
                 <p>{{ __('Don\'t have an account') }}</p>
-                <a href="{{ route('register') }}" class="text-primary text-decoration-underline">{{ __('Create new account') }}</a>
+                <a href="{{ route('register') }}"
+                    class="text-primary text-decoration-underline">{{ __('Create new account') }}</a>
             </div>
         </form>
     </div>

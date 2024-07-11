@@ -5,7 +5,14 @@
 <link rel="stylesheet" href="{{ asset('css/chat.css') }}">
 
 
-
+<style>
+    .avatar img {
+        border-radius: 50%;
+        width: 50px;  /* Set specific width */
+        height: 50px; /* Set specific height */
+        object-fit: cover; /* Ensure the image covers the container without distortion */
+    }
+</style>
 <!------ Include the above in your HEAD tag ---------->
 
 <div class="container">
@@ -18,11 +25,19 @@
                             group chat</h3>
                     </div>
                     <div class="col-md-4 col-xs-4" style="text-align: right;">
+                        @if ($group->admin->id ==auth()->user()->id)
+                        <a href="#" data-toggle="modal" data-target="#deleteChatModal"><span class="glyphicon glyphicon-trash icon_close"></span></a>
+                        @endif
+                        <a href="#"><span id="minim_chat_window" class="glyphicon glyphicon-minus icon_minim"></span></a>
+                        <a href="#"><span class="glyphicon glyphicon-remove icon_close" data-id="chat_window_1"></span></a>
+                    </div>
+                
+                    {{-- <div class="col-md-4 col-xs-4" style="text-align: right;">
                         <a href="#"><span id="minim_chat_window"
                                 class="glyphicon glyphicon-minus icon_minim"></span></a>
                         <a href="#"><span class="glyphicon glyphicon-remove icon_close"
                                 data-id="chat_window_1"></span></a>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="panel-body msg_container_base" id="chat_area">
                     @foreach ($messages as $message)
@@ -53,6 +68,30 @@
         </div>
     </div>
 </div>
+    <!-- Delete Chat Modal -->
+    <div class="modal fade" id="deleteChatModal" tabindex="-1" role="dialog" aria-labelledby="deleteChatModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteChatModalLabel">Delete Chat</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                  {{ __('Are you sure you want to delete the whole chat?') }}
+                </div>
+                <div class="modal-footer d-flex justify-content-between">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Close') }}</button>
+                    <form action="{{ route('delete_messages', $group->id) }}" method="POST">
+                        @csrf
+                        {{-- @method('DELETE') --}}
+                        <button type="submit" class="btn btn-danger">{{ __('Delete') }}</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 <script>

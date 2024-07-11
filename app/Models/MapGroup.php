@@ -25,4 +25,9 @@ class MapGroup extends Model
     {
         return $this->belongsTo(User::class, 'admin_id');
     }
+
+    public function messages(){
+        return $this->hasMany(MapGroupChat::class, 'group_id');
+
+    }
 }

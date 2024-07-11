@@ -26,7 +26,7 @@
 
         // Define custom icons
         var activeIcon = L.icon({
-            iconUrl: '{{ asset('img/active.png') }}',
+            iconUrl: '{{ asset('img/green.png') }}',
             iconSize: [52, 52],
             iconAnchor: [12, 41],
             popupAnchor: [1, -34],
@@ -34,7 +34,7 @@
         });
 
         var criticalIcon = L.icon({
-            iconUrl: '{{ asset('img/critical.png') }}',
+            iconUrl: '{{ asset('img/red.png') }}',
             iconSize: [52, 52],
             iconAnchor: [12, 41],
             popupAnchor: [1, -34],
@@ -65,7 +65,7 @@
                     }).addTo(map)
                     .bindPopup(`
                         {{ __('User Name') }}: {{ $location->user->name }}<br>
-                        {{ __('User Status') }}: {{ $location->status == 'active' ? __('active') : __('critical*') }}<br>
+                        {{ __('User Status') }}: {{ $location->status == 'active' ? __('active') : __('critical') }}<br>
                         {{ __('User Type') }}: ${userType[{{ $location->user->type }}]}
                     `, popupOptions)
                     .openPopup();

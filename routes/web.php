@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\MapGlobalChatsController;
@@ -92,7 +93,14 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('/groups', [MapGroupController::class, 'store'])->name('groups.store')->middleware('auth');
 
+    Route::post('/delete-messages/{group_id}', [MapGroupController::class, 'deleteMessages'])->name('delete_messages')->middleware('auth');
+
+    Route::get('/notifications', [UserController::class, 'notification'])->name('notification')->middleware('auth');
+
+    Route::post('/notifications/read/{id}', [UserController::class, 'markAsRead'])->name('notifications.read');
+
 
 });
 Route::get('/localization/{locale}',[LocaleController::class, 'changeLocale'])->name('localeChange');
 
+Route::post('/logout-status/{id}', [HomeController::class, 'logout'])->name('logout_status')->middleware('auth');

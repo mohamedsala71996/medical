@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMapGroupChatsTable extends Migration
+class CreateNotificaationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateMapGroupChatsTable extends Migration
      */
     public function up()
     {
-        Schema::create('map_group_chats', function (Blueprint $table) {
+        Schema::create('notificaations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('group_id')->constrained('map_groups')->onDelete('cascade');
-            $table->foreignId('sender_id')->constrained('users')->onDelete('cascade');
-            $table->text('message');
+            $table->unsignedBigInteger('user_id');
+            $table->string('status');
+            $table->unsignedBigInteger('group_id');
             $table->timestamps();
-        });
+            });
     }
 
     /**
@@ -29,6 +29,6 @@ class CreateMapGroupChatsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('map_group_chats');
+        Schema::dropIfExists('notificaations');
     }
 }

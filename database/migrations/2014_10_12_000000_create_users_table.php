@@ -33,6 +33,10 @@ class CreateUsersTable extends Migration
             $table->integer('type')->default(1); //1=>user   //2=>doctor   //3=>Clinical nutritionist
             $table->integer('is_login')->default(0);
             $table->integer('logout_time')->nullable();
+            $table->string('face_id_card')->nullable();
+            $table->string('back_id_card')->nullable();
+            $table->date('date_of_birth')->nullable();
+            $table->boolean('is_approved')->default(false); // New column for approval status
             $table->rememberToken();
             $table->timestamps();
         });

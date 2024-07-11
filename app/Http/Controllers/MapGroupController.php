@@ -40,6 +40,15 @@ class MapGroupController extends Controller
 
         return response()->json('Message sent successfully');
     }
+    public function deleteMessages( $group_id)
+    {
+        $group = MapGroup::findOrFail($group_id);
+        $group->messages()->delete();
+        toastr()->success(__('chat deleted successfully'));
+        return redirect()->back();
+    }
+
+
 
 
 }

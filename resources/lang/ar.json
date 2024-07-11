@@ -83,8 +83,16 @@
     "User Status": "الحالة",
     "Normal user": "مستخدم عادي",
     "active": "نشط",
-    "critical*": "حالة حرجة*",
-    "Clinical nutrition specialist": "اخصائي تغذية علاجية"
+    "Status": "الحالة",
+    "inactive": "غير نشط",
+    "critical": "حرجة",
+    "Critical ": "حرجة",
+    "chat deleted successfully": "تم مسح الشات بنجاح",
+    "Close": "أغلق",
+    "Go to Chat": "الذهاب للمحادثة",
+    "Are you sure you want to delete the whole chat?*": "هل أنت متأكد أنك تريد حذف الدردشة بأكملها؟",
+    "Sugar intellectual": "مثقف سكري",
+    "The card will be reviewed as soon as possible":"سيتم مراجعة البطاقة في اقرب وقت"
 
 
 }

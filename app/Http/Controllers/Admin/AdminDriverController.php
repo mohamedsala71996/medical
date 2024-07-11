@@ -229,5 +229,16 @@ class AdminDriverController extends Controller
         }        toastr()->success('تمت العملية بنجاح !','تهانينا');
         return redirect(route('drivers.index'));
     }//end
+
+    public function updateApproval(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+        $user->is_approved = $request->input('is_approved');
+        $user->save();
+    
+        return redirect()->back()->with('success', 'تم تحديث حالة الطبيب بنجاح');
+    }
+
+
 }//end class
 
