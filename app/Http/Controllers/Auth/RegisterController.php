@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RegisterController extends Controller
 {
@@ -32,6 +33,9 @@ class RegisterController extends Controller
             'password' => ['required', 'string', 'min:6', 'confirmed'],
             'face_id_card' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,webp'],
             'back_id_card' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,webp'],
+            'latitude' => ['required', 'numeric'],
+            'longitude' => ['required', 'numeric'],
+    
         ]);
     }
 
@@ -42,6 +46,8 @@ class RegisterController extends Controller
         $user->email = $data['email'];
         $user->type = $data['type'];
         $user->phone = $data['phone'];
+        // $user->latitude = $data['latitude'];
+        // $user->longitude = $data['longitude'];    
         $user->date_of_birth = $data['date_of_birth'];
         $user->password = Hash::make($data['password']);
         $user->is_approved = $data['is_approved'];
@@ -57,6 +63,13 @@ class RegisterController extends Controller
         }
 
         $user->save();
+
+        $user->location()->create([
+            'latitude'=>$data['latitude'],
+            'longitude'=>$data['longitude'],
+            'status' =>'active',
+
+        ]);
 
         return $user;
     }

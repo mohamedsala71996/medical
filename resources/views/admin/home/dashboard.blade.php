@@ -54,7 +54,7 @@
                         <div class="d-flex align-items-center justify-content-center flex-column flex-sm-row">
                             <i class="mdi mdi-doctor text-primary mr-0 mr-sm-4 icon-lg"></i>
                             <div class="wrapper text-center text-sm-left">
-                                <p class="card-text mb-1">عدد اخصائيي التغذية العلاجية</p>
+                                <p class="card-text mb-1">عدد مثقفي السكري</p>
                                 <br>
                                 <div class="fluid-container">
                                     <h3 class="mb-0 font-weight-medium">{{$nutrition->count()}}</h3>

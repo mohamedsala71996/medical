@@ -60,6 +60,8 @@ class MapGroupChatSent implements ShouldBroadcast
                 'id' => $this->user->id,
                 'name' => $this->user->name,
                 'image' => $this->user->image,
+                'type' => $this->user->type,
+                'rating' => $this->user->ratings()->avg('rating'),
             ],
             'message' => $this->message,
         ];

@@ -8,6 +8,7 @@ use App\Http\Requests\AdminRequest;
 use App\Http\Requests\UpdateAdmin;
 use App\Rules\UpdatedUniqueAttribute;
 use App\Http\Controllers\Controller;
+use App\Http\repositories\AdminRepository;
 use Carbon\Carbon;
 use phpDocumentor\Reflection\Types\Scalar;
 
@@ -15,8 +16,11 @@ use phpDocumentor\Reflection\Types\Scalar;
 class AdminAdminController extends Controller
 {
 
+    public $repository;
 
-
+    public function __construct(AdminRepository $repository) {
+        $this->repository = $repository;
+    }
 
     /**
      * Display a listing of the resource.
@@ -89,9 +93,9 @@ class AdminAdminController extends Controller
     public function update(UpdateAdmin $request,Admin $admin)
     {
         //more validation
-        $this->validate($request, [
-            'email' =>new UpdatedUniqueAttribute('email',$admin),
-        ]);
+        // $this->validate($request, [
+        //     'email' =>new UpdatedUniqueAttribute('email',$admin),
+        // ]);
         //update
         $this->repository->update_admin_row($admin,$request);
         toastr()->success('تمت العملية بنجاح !','تهانينا');

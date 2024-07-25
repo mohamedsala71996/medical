@@ -75,7 +75,7 @@
                                         @elseif(($user->type == 2))
                                             <span>{{ __('Doctor') }}</span>
                                         @else
-                                            <span>{{ __('Nutrition Specialist') }}</span>
+                                            <span>{{ __('diabetes educator') }}</span>
                                         @endif
                                     </li>
                                     {{-- <li>
@@ -123,6 +123,8 @@
                                     </div>
                                 </div>
                                 {{-- @include('layouts.site.inc.leftside') --}}
+                                
+
                             </div>
                         </div>
                     </div>

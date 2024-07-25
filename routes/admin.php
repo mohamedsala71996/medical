@@ -18,7 +18,7 @@ use App\Http\Traits\FirebaseMultiTrait;
 use Illuminate\Support\Facades\Config;
 
 
-Route::group(['prefix' => 'admin', 'middleware' => 'Lang'], function () {
+Route::group(['prefix' => 'admin'], function () {
 
     config::set('auth.defines', 'admin');
     /*====================Start Admin Auth System==================*/

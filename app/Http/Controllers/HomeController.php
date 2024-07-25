@@ -173,7 +173,7 @@ class HomeController extends Controller
             // $location = Location::where('user_id',$id)->first();
             // $location->status ='inactive';
             // $location->save();
-            Location::where('user_id', $user->id)->delete();
+            // Location::where('user_id', $user->id)->delete();
         }
         Auth::logout();
 

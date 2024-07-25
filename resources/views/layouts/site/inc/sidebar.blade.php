@@ -83,23 +83,23 @@
             <ul class="naves">
                 <li>
                     <i class="ti-mouse-alt"></i>
-                    <a href="{{ url('/') }}" title="{{ __('Home') }}">{{ __('Home') }}</a>
+                    <a href="{{ url('/posts') }}" title="{{ __('Posts page') }}">{{ __('Posts page') }}</a>
                 </li>
                 <li>
                     <i class="ti-files"></i>
                     <a href="{{ url('siteProfile') }}" title="{{ __('MyProfile') }}">{{ __('MyProfile') }}</a>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <i class="fas fa-bell"></i>
                     <a  href="{{ url('notifications') }}" title="{{ __('Notifications') }}">
                         <span class="badge badge-danger">{{ App\Models\Notificaation::where('user_id','!=' ,Auth::id())->count() }}</span>
                         {{ __('Notifications') }}
                     </a>
-                </li>
+                </li> --}}
                         
                 @auth
                 <li>
-                    <form id="status-form">
+                    {{-- <form id="status-form">
                         @csrf
                         <select id="status" name="status">
                             <option value="active">{{ __('Active') }}</option>
@@ -109,11 +109,12 @@
                         <button type="button" onclick="updateStatus()">{{ __('Update status') }}</button>
                     </form>
                     <div class="success-message" id="success-message">{{ __('Status updated successfully!') }}</div>
-                    <br>
-                    <form action="{{ route('users_location') }}" method="post">
-                        @csrf
-                        <button class="btn btn-info" type="submit"><i class="ti-map"></i> {{ __('Go to Map') }}</button>
-                    </form>
+                    <br> --}}
+                    {{-- <form action="{{ route('users_location') }}" method="post"> --}}
+                        {{-- @csrf --}}
+                        <a href="{{ url('map') }}" class="btn btn-info" style="color: white"> {{ __('Go to Map') }}</a>
+                        {{-- <button class="btn btn-info" type="submit"><i class="ti-map"></i> {{ __('Go to Map') }}</button> --}}
+                    {{-- </form> --}}
                     <script src="/js/status.js"></script>
                     <script>
                         function updateStatus() {

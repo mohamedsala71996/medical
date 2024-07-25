@@ -34,8 +34,8 @@
 @endphp
     <div class="text-center">
         <span>
-            <span id="status" >{{ __('Status') }}:</span> 
-            @if ($location)
+            {{-- <span id="status" >{{ __('Status') }}:</span>  --}}
+            {{-- @if ($location)
             <span class="{{ $location->status == 'active' ? 'status-active' : ($location->status == 'critical' ? 'status-critical' : 'status-inactive') }}">
                 {{ $location->status == 'active' ? __('active') : ($location->status == 'critical' ? __('Critical ') : __('inactive')) }}
             </span>
@@ -43,8 +43,8 @@
             <span class="status-inactive">
                 {{__('inactive') }}
             </span>
-            @endif
-        </span>
+            @endif --}}
+        {{-- </span> --}}
             </div>
     <div class="central-meta">
         @if (Auth::check())
@@ -91,7 +91,7 @@
                                         {{ $post->user->name }}
                                     @endif
                                 </a>
-                                @if (Auth::check() && auth()->user()->id == $post->user_id)
+                                {{-- @if (Auth::check() && auth()->user()->id == $post->user_id)
                                     <div class="dropdown">
                                         <button class="btn btn-secondary dropdown-toggle" type="button"
                                             data-bs-toggle="dropdown" aria-expanded="false">
@@ -104,7 +104,7 @@
                                         </ul>
                                     </div>
                                     @include('site.home.edit-delete-Post')
-                                @endif
+                                @endif --}}
                             </ins>
                             <span>{{ __('Published') }}: {{ $post->created_at->diffForHumans() }}</span>
                         </div>

@@ -86,7 +86,7 @@
                     <option selected disabled>{{ __('Choose') }}</option>
                     <option value="1">{{ __('User') }}</option>
                     <option value="2">{{ __('Doctor') }}</option>
-                    <option value="3">{{ __('Sugar intellectual') }}</option>
+                    <option value="3">{{ __('diabetes educator') }}</option>
                 </select>
             </div>
             <div class="input-group col-sm">
@@ -111,6 +111,10 @@
             <label for="phone_Number" class="form-label">{{ __('Phone Number') }}</label>
             <input style="width: 95%;" type="text" name="phone" class="m-auto form-control border border-dark rounded" id="phone_Number">
         </div>
+        <input type="hidden" name="latitude" value="{{ old('latitude') }}" id="latitude">
+        <input type="hidden" name="longitude" value="{{ old('longitude') }}" id="longitude">
+        <div id="map" style="height: 500px;width: 100%;"></div>
+
         <button style="width: 95%; height: 47px; background-color: #4C3FD7;" class="btn btn-primary customHover" type="submit">{{ __('Create New Account') }}</button>
         <div class="d-flex gap-1 justify-content-center m-auto p-3">
             <p>{{ __('You have an account') }}</p>
@@ -131,5 +135,86 @@
             }
         });
     </script>
+
+<script>
+    $("#pac-input").focusin(function() {
+        $(this).val('');
+    });
+  
+    $('#latitude').val('');
+    $('#longitude').val('');
+  
+    function initAutocomplete() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: 24.740691, lng: 46.6528521},
+            zoom: 13,
+            mapTypeId: 'roadmap'
+        });
+  
+        var marker = new google.maps.Marker({
+            position: {lat: 24.740691, lng: 46.6528521},
+            map: map,
+            title: 'Drag me!',
+            draggable: true
+        });
+  
+        google.maps.event.addListener(marker, 'dragend', function(event) {
+            document.getElementById("latitude").value = this.getPosition().lat();
+            document.getElementById("longitude").value = this.getPosition().lng();
+        });
+  
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var pos = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+                map.setCenter(pos);
+                marker.setPosition(pos);
+                document.getElementById("latitude").value = pos.lat;
+                document.getElementById("longitude").value = pos.lng;
+            }, function() {
+                handleLocationError(true, map.getCenter());
+            });
+        } else {
+            handleLocationError(false, map.getCenter());
+        }
+    }
+  
+    function handleLocationError(browserHasGeolocation, pos) {
+        var content = browserHasGeolocation ?
+            'Error: The Geolocation service failed.' :
+            'Error: Your browser doesn\'t support geolocation.';
+        var options = {
+            map: map,
+            position: pos,
+            content: content
+        };
+        var infowindow = new google.maps.InfoWindow(options);
+        infowindow.open(map);
+        map.setCenter(pos);
+    }
+  
+    document.getElementById('add-phone-number').addEventListener('click', function() {
+        var phoneNumbersDiv = document.getElementById('phone-numbers');
+        var index = phoneNumbersDiv.children.length;
+        var div = document.createElement('div');
+        div.className = 'form-group mb-4';
+        div.innerHTML = `
+            <select class="form-control" name="phone_numbers[${index}][title]" required>
+                        <option value="whatsapp">Whatsapp</option>
+                        <option value="mobile">Mobile</option>
+                        <option value="landline">Landline</option>
+                        <option value="telegram">Telegram</option>
+            </select>
+            <input type="text" class="form-control" name="phone_numbers[${index}][phone_number]" placeholder="Phone Number" required>
+        `;
+        phoneNumbersDiv.appendChild(div);
+    });
+  
+  </script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDc4op2z5AnCNM5hgYKl5M4mDsV_rILD4Y&libraries=places&callback=initAutocomplete&language=ar&region=EG" async defer></script>
+
+  
 </body>
 </html>

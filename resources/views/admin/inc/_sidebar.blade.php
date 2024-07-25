@@ -32,8 +32,8 @@
             </a>
             <div class="collapse" id="ui-basic">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="{{ route('setting.edit', 1) }}">الاعدادات</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="{{ route('siteTexts.index') }}">معلومات النظام</a>
+                    <li class="nav-item"> <a class="nav-link" href="{{ route('setting.edit', 1) }}">معلومات الموقع</a></li>
+                    {{-- <li class="nav-item"> <a class="nav-link" href="{{ route('siteTexts.index') }}">معلومات النظام</a> --}}
                     </li>
                     {{--
                     <li class="nav-item"> <a class="nav-link" href="{{route('adminEmails.index')}}">ارسال بريد الكترونى</a></li>
@@ -44,8 +44,8 @@
                     {{--
                     <li class="nav-item"> <a class="nav-link" href="{{route('sliders.index')}}">صور البانر</a></li>
 --}}
-                    <li class="nav-item"> <a class="nav-link" href="{{ route('socials.index') }}">حسابات السوشيل
-                            ميديا</a></li>
+                    {{-- <li class="nav-item"> <a class="nav-link" href="{{ route('socials.index') }}">حسابات السوشيل
+                            ميديا</a></li> --}}
                 </ul>
             </div>
         </li>
@@ -70,7 +70,7 @@
         {{-- drivers --}}
         <li class="nav-item">
             <a class="nav-link" href="{{ route('drivers.index') }}">
-                <span class="menu-title">الاطباء وأخصائيي التغذية العلاجية</span>
+                <span class="menu-title">الاطباء ومثقفي السكري</span>
                 <i class="mdi mdi-factory menu-icon"></i>
             </a>
         </li>

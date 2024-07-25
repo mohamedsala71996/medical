@@ -53,10 +53,10 @@
                                         <td>{{ $admin->name }}</td>
                                         <td>{{ $admin->email }}</td>
                                         <td>
-                                            <button class="btn btn-gradient-danger  btn-fw delete" style="padding: 10px"
+                                            {{-- <button class="btn btn-gradient-danger  btn-fw delete" style="padding: 10px"
                                                 id="{{ $admin->id }}">
                                                 حذف <i class="mdi mdi-delete"> </i>
-                                            </button>
+                                            </button> --}}
                                             <a class="btn btn-gradient-success  btn-fw" style="padding: 10px"
                                                 href="{{ route('admins.edit', $admin->id) }}
                                                 ">

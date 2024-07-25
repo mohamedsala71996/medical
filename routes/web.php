@@ -7,12 +7,13 @@ use App\Http\Controllers\LocationController;
 use App\Http\Controllers\MapGlobalChatsController;
 use App\Http\Controllers\MapGroupController;
 use App\Http\Controllers\MapMessageController;
+use App\Http\Controllers\RatingController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return redirect(url('/posts'));
+    return redirect(url('/map'));
 });
 
 Route::get('test', function () {
@@ -27,9 +28,9 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('message', 'App\Http\Controllers\HomeController@sendMessage'); //
     Route::resource('posts', 'App\Http\Controllers\PostesController'); //
-    Route::get('/message/{id}', 'App\Http\Controllers\HomeController@getMessage')->name('message');
+    // Route::get('/message/{id}', 'App\Http\Controllers\HomeController@getMessage')->name('message');
     Route::get('/ShowMassage/{id}', 'App\Http\Controllers\HomeController@ShowMassage');
-    Route::get('/messag/{id}', 'App\Http\Controllers\HomeController@getMessag')->name('message');
+    // Route::get('/messag/{id}', 'App\Http\Controllers\HomeController@getMessag')->name('message');
     Route::get('/subscribe', 'App\Http\Controllers\HomeController@subscribe');
     Route::delete('/unFollow/{id}', 'App\Http\Controllers\HomeController@remove_user');
     /////////////////////
@@ -63,7 +64,8 @@ Route::middleware(['auth'])->group(function () {
     //-------------------------{-- Map Routes --}-------------------------
 
     Route::get('/map', function () {
-        return view('location.map');
+        // return view('location.map');
+        return view('location.admin_map');
     });
     Route::get('/update-status', function () {
         return view('location.status');
@@ -91,6 +93,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('/group/{id}', [MapGroupController::class, 'messageStore'])->middleware('auth');
 
+    Route::post('/pin-message/{id}', [MapGroupController::class, 'pinMessageStore'])->name('pin_message')->middleware('auth');
+
     Route::post('/groups', [MapGroupController::class, 'store'])->name('groups.store')->middleware('auth');
 
     Route::post('/delete-messages/{group_id}', [MapGroupController::class, 'deleteMessages'])->name('delete_messages')->middleware('auth');
@@ -98,6 +102,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/notifications', [UserController::class, 'notification'])->name('notification')->middleware('auth');
 
     Route::post('/notifications/read/{id}', [UserController::class, 'markAsRead'])->name('notifications.read');
+
+    Route::get('/user/{id}/map', [UserController::class, 'showMap'])->name('user.map');
+
+    Route::post('/rate-user', [RatingController::class, 'store'])->name('rate.user');
 
 
 });

@@ -29,7 +29,9 @@ class User extends Authenticatable
         'face_id_card',
         'back_id_card',
         'date_of_birth',
-        'is_approved'
+        'is_approved',
+        'longitude',
+        'latitude',
     ];
 
     /**
@@ -80,5 +82,15 @@ class User extends Authenticatable
     {
         return $this->hasOne(MapGroup::class, 'admin_id'); // user can be admin on one group only and group has only one admin 
     }
+
+    public function location()
+    {
+        return $this->hasOne(Location::class);
+    }
+
+    public function ratings()
+{
+    return $this->hasMany(Rating::class);
+}
 
 }
